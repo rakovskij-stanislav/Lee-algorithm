@@ -11,6 +11,7 @@ Changes:
 Anti-queue liberation is:
 - q = Queue() => q = []
 - q.empty() => len(q)==0
+- a = q.get() => a = q[0]; del q[0]
 - q.put(smth) => q.append(smth)
 
 BE CAREFUL! Perfomance boost only for python3, not python2.7 (~23 sec both variants using py2.7)
