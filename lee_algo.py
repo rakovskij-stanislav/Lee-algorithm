@@ -1,7 +1,5 @@
 __author__ = 'Corvo'
-
-from Queue import *
-
+__enhancer__ = 'rakovskij-stanislav'
 
 class Field(object):
 
@@ -26,10 +24,10 @@ class Field(object):
         self[self.__start[0]][self.__start[1]] = 1
 
     def emit(self):
-        q = Queue()
-        q.put(self.__start)
-        while not q.empty():
-            index = q.get()
+        q = [self.__start]
+        while len(q)!=0:
+            index = q[0]
+            del q[0]
             l = (index[0]-1, index[1])
             r = (index[0]+1, index[1])
             u = (index[0], index[1]-1)
@@ -37,16 +35,16 @@ class Field(object):
 
             if l[0] >= 0 and self[l[0]][l[1]] == 0:
                 self[l[0]][l[1]] += self[index[0]][index[1]] + 1
-                q.put(l)
+                q.append(l)
             if r[0] < self._len and self[r[0]][r[1]] == 0:
                 self[r[0]][r[1]] += self[index[0]][index[1]] + 1
-                q.put(r)
+                q.append(r)
             if u[1] >= 0 and self[u[0]][u[1]] == 0:
                 self[u[0]][u[1]] += self[index[0]][index[1]] + 1
-                q.put(u)
+                q.append(u)
             if d[1] < self._len and self[d[0]][d[1]] == 0:
                 self[d[0]][d[1]] += self[index[0]][index[1]] + 1
-                q.put(d)
+                q.append(d)
 
     def get_path(self):
         if self[self.finish[0]][self.finish[1]] == 0 or \
@@ -80,11 +78,12 @@ class Field(object):
     def _show(self):
         for i in self:
             for j in i:
-                print j,
-            print
+                pass
+                #print j,
+            #print
 
 
-if __name__ == '__main__':
+def start():
     field = Field(len=5, start=(0, 0), finish=(2, 4),
                   barriers=[(2, 3), (3, 2), (1, 4)])
     field.emit()
@@ -92,7 +91,8 @@ if __name__ == '__main__':
     try:
         path = field.get_path()
         for p in path:
-            print p,
+            pass
+            #print p,
     except:
-        print 'Path not found'
-
+        print('Path not found')
+    #print '+'
